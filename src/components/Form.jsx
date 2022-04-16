@@ -3,17 +3,19 @@ import useClimate from "../hooks/useClimate";
 
 const Form = () => {
     const [alert, setAlert] = useState('');
-    const {search, searchData} = useClimate();
+    const {search, searchData, getWeather} = useClimate();
     const {city, country} = searchData;
     const handleSubmit = e => {
         e.preventDefault();
         if (Object.values(search).includes('')) {
             setAlert('Please fill in all fields');
         }
+        getWeather(search);
         
     };
   return (
     <div className="container">
+     {alert && <p>{alert}</p>} 
       <form
       onSubmit={handleSubmit}>
         <div className="field">
