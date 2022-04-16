@@ -1,16 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
+import useClimate from "../hooks/useClimate";
 
 const Form = () => {
+    const [alert, setAlert] = useState('');
+    const {search, searchData} = useClimate();
+    const {city, country} = searchData;
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (Object.values(search).includes('')) {
+            setAlert('Please fill in all fields');
+        }
+        
+    };
   return (
     <div className="container">
-      <form>
+      <form
+      onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="city">City</label>
-          <input type={"text"} id="city" name="city" />
+          <input value={city} onChange={searchData} type={"text"} id="city" name="city" />
         </div>
         <div className="field">
           <label htmlFor="country">Country</label>
-          <select id="country" name="country">
+          <select value={country} onChange={searchData} id="country" name="country">
             <option value="">Select a Country</option>
             <option value="AR">Argentina</option>
             <option value="US">EEUU</option>
